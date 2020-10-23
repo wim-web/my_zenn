@@ -1,0 +1,4 @@
+runner:
+  textlint:
+  errorformat:
+    - "%f:%l:%c: %m"
