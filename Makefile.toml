@@ -1,3 +1,7 @@
+env_files = [
+    "./.cargomake.env"
+]
+
 [config]
 skip_core_tasks = true
 
@@ -5,7 +9,7 @@ skip_core_tasks = true
 script = [
 '''
 #!/bin/bash
-docker run --rm -v $(pwd)/contents:/work zenn:0.6 ${@}
+docker run --rm -v $(pwd):/work ${IMAGE} ${@}
 '''
 ]
 
@@ -13,7 +17,7 @@ docker run --rm -v $(pwd)/contents:/work zenn:0.6 ${@}
 script = [
 '''
 #!/bin/bash
-docker run --rm -it -v $(pwd):/work --entrypoint "/bin/ash" zenn:0.6
+docker run --rm -it -v $(pwd):/work --entrypoint "/bin/ash" ${IMAGE}
 '''
 ]
 
@@ -21,6 +25,6 @@ docker run --rm -it -v $(pwd):/work --entrypoint "/bin/ash" zenn:0.6
 script = [
 '''
 #!/bin/bash
-docker run --rm -it -v $(pwd):/work --entrypoint "npx" zenn:0.6 textlint ${@}
+docker run --rm -it -v $(pwd):/work --entrypoint "npx" ${IMAGE} textlint ${@}
 '''
 ]
