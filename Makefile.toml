@@ -9,7 +9,7 @@ skip_core_tasks = true
 script = [
 '''
 #!/bin/bash
-docker run --rm -v $(pwd):/work ${IMAGE} ${@}
+docker run --rm -v $(pwd):/work -p 8888:8000 ${IMAGE} ${@}
 '''
 ]
 
@@ -25,6 +25,12 @@ docker run --rm -it -v $(pwd):/work --entrypoint "/bin/ash" ${IMAGE}
 script = [
 '''
 #!/bin/bash
-docker run --rm -it -v $(pwd):/work --entrypoint "npx" ${IMAGE} textlint ${@}
+if [ "$1" = "" ]
+then
+    ARG="articles/** books/**"
+else
+    ARG=$1
+fi
+docker run --rm -it -v $(pwd):/work --entrypoint "npx" ${IMAGE} textlint ${ARG}
 '''
 ]
