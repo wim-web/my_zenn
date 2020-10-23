@@ -1,0 +1,26 @@
+[config]
+skip_core_tasks = true
+
+[tasks.zenn]
+script = [
+'''
+#!/bin/bash
+docker run --rm -v $(pwd)/contents:/work zenn:0.6 ${@}
+'''
+]
+
+[tasks.attach]
+script = [
+'''
+#!/bin/bash
+docker run --rm -it -v $(pwd):/work --entrypoint "/bin/ash" zenn:0.6
+'''
+]
+
+[tasks.tl]
+script = [
+'''
+#!/bin/bash
+docker run --rm -it -v $(pwd):/work --entrypoint "npx" zenn:0.6 textlint ${@}
+'''
+]

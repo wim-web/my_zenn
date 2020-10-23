@@ -1,0 +1,18 @@
+name: textlint
+on: [pull_request]
+jobs:
+  textlint:
+    name: runner / textlint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: '14'
+      - run: npm install
+      - uses: reviewdog/action-setup@v1
+        with:
+          reviewdog_version: latest
+      - name: listlint | reviewdog
+        run:  npx textlint | reviewdog -efm="%f:%l:%c: %m" -diff="git diff master"
