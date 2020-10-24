@@ -1,0 +1,107 @@
+[config]
+skip_core_tasks = true
+
+[tasks.welcome]
+category = "first"
+description = "setup [arg -- No]"
+run_task = { name = ["d-build", "z-init", "npmi"]}
+
+[tasks.zenn]
+category = "zenn"
+description = "use like zenn command [arg -- Optional]"
+script = [
+'''
+#!/bin/bash
+docker run --rm -it -v $(pwd):/work -p 8888:8000 zenn:latest ${@}
+'''
+]
+
+[tasks.preview]
+category = "zenn"
+description = "zenn preview [arg -- No]"
+script = [
+'''
+#!/bin/bash
+docker run --rm -v $(pwd):/work -p 8888:8000 zenn:latest
+'''
+]
+
+[tasks.article]
+category = "zenn"
+description = "zenn new:article [arg -- Optional]"
+script = [
+'''
+#!/bin/bash
+docker run --rm -v $(pwd):/work zenn:latest new:article ${@}
+'''
+]
+
+[tasks.book]
+category = "zenn"
+description = "zenn new:book [arg -- Optional]"
+script = [
+'''
+#!/bin/bash
+docker run --rm -v $(pwd):/work zenn:latest new:book ${@}
+'''
+]
+
+[tasks.z-init]
+category = "zenn"
+private = true
+description = "zenn init [arg -- No]"
+script = [
+'''
+docker run --rm -v $(pwd):/work zenn:latest init
+'''
+]
+
+[tasks.attach]
+category = "other"
+description = "login ash [arg -- No]"
+script = [
+'''
+#!/bin/bash
+docker run --rm -it -v $(pwd):/work --entrypoint "/bin/ash" zenn:latest
+'''
+]
+
+# textlint
+
+[tasks.tl]
+category = "textlint"
+description = "run textlint [arg -- Optional]"
+script = [
+'''
+#!/bin/bash
+if [ "$1" = "" ]
+then
+    ARG="articles/** books/**"
+else
+    ARG=$1
+fi
+docker run --rm -v $(pwd):/work --entrypoint "npx" zenn:latest textlint ${ARG}
+'''
+]
+
+# npm
+[tasks.npmi]
+category = "npm"
+description = "run npm install [arg -- No]"
+script = [
+'''
+#!/bin/bash
+docker run --rm -v $(pwd):/work --entrypoint "npm" zenn:latest i
+'''
+]
+
+# docker
+
+[tasks.d-build]
+category = "docker"
+description = "build zenn docker image [arg -- No]"
+script = [
+'''
+docker build -t zenn:latest ./.docker
+'''
+]
