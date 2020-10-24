@@ -1,27 +1,4 @@
-# Docker for zenn
+# Zenn Contents
 
-```
-docker build -t zenn:latest
-```
-
-```
-IMAGE=zenn:latest
-```
-
-```
-makers zenn init
-```
-
-## textlint
-
-```
-makers attach
-```
-
-```
-makers npm i
-```
-
-```
-makers tl
-```
+* [📘 How to use](https://zenn.dev/zenn/articles/zenn-cli-guide)
+* [📘 Markdown guide](https://zenn.dev/zenn/articles/markdown-guide)
