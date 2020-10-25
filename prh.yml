@@ -1,0 +1,8 @@
+version: 1
+rules:
+  - expected: VSCode
+    specs:
+      - from: vscode
+        to: VSCode
+      - from: VScode
+        to: VSCode

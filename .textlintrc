@@ -9,7 +9,7 @@
     },
     "preset-ja-technical-writing": true,
     "prh": {
-      "rulePaths": ["./node_modules/textlint-rule-preset-icsmedia/dict/prh.yml"],
+      "rulePaths": ["./node_modules/textlint-rule-preset-icsmedia/dict/prh.yml", "./prh.yml"],
     },
     "@proofdict/proofdict": {
       "dictURL": "https://azu.github.io/proof-dictionary/"
