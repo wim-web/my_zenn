@@ -1,0 +1,14 @@
+version: 1
+
+imports:
+  - path: ./node_modules/textlint-rule-preset-icsmedia/dict/prh.yml
+    ignoreRules:
+      - expected: VS Code
+
+rules:
+  - expected: VSCode
+    specs:
+      - from: vscode
+        to: VSCode
+      - from: VScode
+        to: VSCode

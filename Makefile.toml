@@ -74,11 +74,11 @@ description = "run textlint [arg -- Optional]"
 script = [
 '''
 #!/bin/bash
-if [ "$1" = "" ]
+if [ -z "$@" ]
 then
     ARG="articles/** books/**"
 else
-    ARG=$1
+    ARG=$@
 fi
 docker run --rm -v $(pwd):/work --entrypoint "npx" zenn:latest textlint ${ARG}
 '''
