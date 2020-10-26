@@ -12,3 +12,4 @@ rules:
         to: VSCode
       - from: VScode
         to: VSCode
+    prh: 大文字・小文字を確認してください
