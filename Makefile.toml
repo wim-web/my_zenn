@@ -22,7 +22,7 @@ description = "zenn preview [arg -- No]"
 script = [
 '''
 #!/bin/bash
-docker run --rm -v $(pwd):/work -p 8888:8000 zenn:latest
+docker run -it --rm -v $(pwd):/work -p 8888:8000 zenn:latest
 '''
 ]
 
@@ -32,7 +32,7 @@ description = "zenn new:article [arg -- Optional]"
 script = [
 '''
 #!/bin/bash
-docker run --rm -v $(pwd):/work zenn:latest new:article ${@}
+docker run -it --rm -v $(pwd):/work zenn:latest new:article ${@}
 '''
 ]
 
@@ -42,7 +42,7 @@ description = "zenn new:book [arg -- Optional]"
 script = [
 '''
 #!/bin/bash
-docker run --rm -v $(pwd):/work zenn:latest new:book ${@}
+docker run -it --rm -v $(pwd):/work zenn:latest new:book ${@}
 '''
 ]
 
@@ -80,7 +80,7 @@ then
 else
     ARG=$@
 fi
-docker run --rm -v $(pwd):/work --entrypoint "npx" zenn:latest textlint ${ARG}
+docker run -it --rm -v $(pwd):/work --entrypoint "npx" zenn:latest textlint ${ARG}
 '''
 ]
 
@@ -91,7 +91,7 @@ description = "run npm install [arg -- No]"
 script = [
 '''
 #!/bin/bash
-docker run --rm -v $(pwd):/work --entrypoint "npm" zenn:latest i
+docker run -it --rm -v $(pwd):/work --entrypoint "npm" zenn:latest i
 '''
 ]
 
