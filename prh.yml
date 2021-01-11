@@ -13,3 +13,8 @@ rules:
       - from: VScode
         to: VSCode
     prh: 大文字・小文字を確認してください
+  - expected: Terraform Cloud
+    specs:
+      - from: terraform cloud
+        to: Terraform Cloud
+    prh: 大文字・小文字を確認してください
