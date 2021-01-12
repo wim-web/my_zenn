@@ -192,8 +192,11 @@ CloudTrailはCloudWatchLogsにもログを流すことができるので、そ�
 **できること**
 
 - メンバーアカウントへの委任
-- メンバーアカウントでの自動有効化
 - 結果の集約
+
+**できないこと**
+
+- メンバーアカウントでの自動有効化
 
 ### Config用のS3
 
@@ -261,9 +264,9 @@ resource "aws_organizations_organization" "org" {
 } 
 ```
 
-マスターアカウントでConfigを作成します。
+ConfigはOrganizationsを使ってもメンバーアカウントで自動有効化されないので、すべてのアカウントでConfigを作成します。
 
-委任 -> Configの作成 ではなく Configの作成 -> 委任 の順番でないとだめなので注意しましょう。
+moduleなどをして再利用するのがいいとおもいます。
 
 ```hcl
 resource "aws_iam_service_linked_role" "config_role" {
@@ -293,6 +296,8 @@ resource "aws_config_configuration_recorder_status" "default" {
 ```
 
 次にSecurityアカウントに委任します。
+
+委任 -> Configの作成 ではなく Configの作成 -> 委任 の順番でないとだめなので注意しましょう。
 
 Terraformで委任用のリソースが提供されていないのでAWS CLIで行っています。
 
