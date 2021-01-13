@@ -10,7 +10,7 @@ published: true
 
 今回検証した各ツールのバージョンは以下です。
 
-- MacOS
+- macOS
 - aws-cli/2.1.2 
 - Terraform/0.14.0
 - aws-vault/6.2.0
