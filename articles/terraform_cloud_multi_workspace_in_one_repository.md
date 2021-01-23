@@ -41,7 +41,7 @@ Workspaceを作成したあとGeneral SettingsのTerraform Working Directoryを�
 
 他のWorkspaceのstateを参照する方法も用意されています。
 
-```
+```hcl
 data "terraform_remote_state" "vpc" {
   backend = "remote"
   config = {

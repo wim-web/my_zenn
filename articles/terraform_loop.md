@@ -10,7 +10,7 @@ published: true
 
 Terraformで繰り返し処理がしたくて調べていると以下のようなコードを見つけました。
 
-```
+```hcl
 resource "aws_route53_record" "this" {
   for_each = {
     for d in var.domains : d.domain_name => {
@@ -40,7 +40,7 @@ forは式なので値を返しますが、for_eachは返しません。
 
 for_eachはresourceやmoduleでしか書けず、イメージとしてはresourceブロックごと繰り返すという感じになります。
 
-```
+```hcl
 # これは書ける
 resource "aws_instance" "name" {
   for_each = []
@@ -62,7 +62,7 @@ mapとlistをforで回せるのでそれぞれ見ていきます。
 
 まずは単純に配列の文字列をすべて大文字にしてみます。
 
-```
+```hcl
 locals {
   list = [
     "hoge",
@@ -75,7 +75,7 @@ output "output_list" {
 }
 ```
 
-```
+```hcl
 Changes to Outputs:
   + output_list = [
       + "HOGE",
@@ -85,7 +85,7 @@ Changes to Outputs:
 
 ifを使ってフィルタリングもできます。
 
-```
+```hcl
 locals {
   list = [
     "hoge",
@@ -98,7 +98,7 @@ output "output_list" {
 }
 ```
 
-```
+```hcl
 Changes to Outputs:
   + output_list = [
       + "HOGE",
@@ -107,7 +107,7 @@ Changes to Outputs:
 
 indexが欲しい場合はこうします。
 
-```
+```hcl
 locals {
   list = [
     "hoge",
@@ -120,7 +120,7 @@ output "output_list" {
 }
 ```
 
-```
+```hcl
 Changes to Outputs:
   + output_list = [
       + "0_hoge",
@@ -130,7 +130,7 @@ Changes to Outputs:
 
 listからmapを生成することもできます。
 
-```
+```hcl
 locals {
   list = [
     "hoge",
@@ -144,7 +144,7 @@ output "output_map" {
 }
 ```
 
-```
+```hcl
 Changes to Outputs:
   + output_map = {
       + 0 = "hoge"
@@ -154,7 +154,7 @@ Changes to Outputs:
 
 keyが同じになるものをまとめることもできます。（使い所はわかりません。）
 
-```
+```hcl
 locals {
   list = [
     "hoge",
@@ -168,7 +168,7 @@ output "output_map" {
 }
 ```
 
-```
+```hcl
 Changes to Outputs:
   + output_map = {
       + fuga = [
@@ -185,7 +185,7 @@ Changes to Outputs:
 
 key, valueともに大文字にしてみます。
 
-```
+```hcl
 locals {
   map = {
     a = "about"
@@ -198,7 +198,7 @@ output "output_map" {
 }
 ```
 
-```
+```hcl
 Changes to Outputs:
   + output_map = {
       + A = "ABOUT"
@@ -208,7 +208,7 @@ Changes to Outputs:
 
 mapでもifが使えます。
 
-```
+```hcl
 locals {
   map = {
     a = "about"
@@ -221,7 +221,7 @@ output "output_map" {
 }
 ```
 
-```
+```hcl
 Changes to Outputs:
   + output_map = {
       + A = "ABOUT"
@@ -230,7 +230,7 @@ Changes to Outputs:
 
 mapからlistを生成することもできます。
 
-```
+```hcl
 locals {
   map = {
     a: "about"
@@ -243,7 +243,7 @@ output "output_list" {
 }
 ```
 
-```
+```hcl
 Changes to Outputs:
   + output_map = [
       + "about",
@@ -265,7 +265,7 @@ v0.13からresource, moduleの両方で使えます。それ以前のバージ�
 resourceブロックに `count = 数値` を指定することで指定した数値分のリソースを作成できます。
 `count.index` でインデックスを取得できます。
 
-```
+```hcl
 resource "aws_iam_user" "example" {
   count = 2
   name = "user_${count.index}"
@@ -276,7 +276,7 @@ output "user_ids" {
 }
 ```
 
-```
+```hcl
 Outputs:
 
 users = [
@@ -287,7 +287,7 @@ users = [
 
 これだけだとインデックスでしか名前などを変更できないので、基本的にはlistと組み合わせて使う感じになると思います。
 
-```
+```hcl
 locals {
   names = [
     "hoge_user",
@@ -314,7 +314,7 @@ for_eachはv0.12.6で追加されて、moduleでも使えるようになった�
 count + listで行っていたことと同様のことがfor_eachでもできます。
 値を取り出すときにインデックスを指定しなくてよくなるのでシンプルに書けます。
 
-```
+```hcl
 locals {
   names = [
     "hoge_user",
@@ -335,7 +335,7 @@ for_eachはmap or setしか受け付けないためlistをそのまま使えず 
 
 mapを使うことでkeyとvalueのそれぞれを参照できるようになり、より柔軟にリソースの設定が行なえます。
 
-```
+```hcl
 locals {
   users = {
     hoge_user = "/hoge/",
@@ -354,7 +354,7 @@ resource "aws_iam_user" "example" {
 
 特定のリソースでは繰り返し可能な設定があります。
 
-```
+```hcl
 resource "aws_autoscaling_group" "example" {
   # ...
 
@@ -380,7 +380,7 @@ resource "aws_autoscaling_group" "example" {
 
 これらをfor_eachを使って書くことができます。
 
-```
+```hcl
 locals {
   standard_tags = {
     Name        = "example-asg-name"
@@ -412,7 +412,7 @@ resource "aws_autoscaling_group" "example" {
 
 forは式でlistやmapを返すのでfor_eachと組み合わせることができます。
 
-```
+```hcl
 locals {
   names = [
     "hoge",

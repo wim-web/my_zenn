@@ -26,7 +26,7 @@ Terraform Cloudにあるstateファイルをコピペ or Downloadで手元のル
 
 その後、tfファイルに以下を追記します。(organization, workspaceは自分自身の環境に合わせて設定してください)
 
-```
+```hcl
 terraform {
  backend "remote" {
     hostname = "app.terraform.io"
