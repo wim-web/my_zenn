@@ -6,6 +6,10 @@ topics: ["AWS", "Terraform"]
 published: true
 ---
 
+## 追記
+
+2021/1/23 aws-vaultで突如credentialsエラーになり使えなくなったときの対処
+
 ## 前提
 
 今回検証した各ツールのバージョンは以下です。
@@ -81,3 +85,17 @@ aws-vault exec <profile-name> -- terraform plan
 ```
 
 これでplan内容が表示されれば完了です。
+
+## aws-vaultで突如credentialsエラーになって使えなくなった
+
+すべてのプロファイルで以下のエラーが出て使えなくなってしまいました。
+
+```
+aws-vault: error: exec: Failed to get credentials for hoge: : Session token not found or invalid
+        status code: 401, request id: 
+```
+
+直接AWS CLIを叩くと動くためaws-vaultがおかしくなったみたいです。
+
+対処法としては `~/Library/Keychains/aws-vault.keychain-db` のファイルを消して再度実行すると動くようになりました。
+（念の為バックアップをとっておいてください。）
