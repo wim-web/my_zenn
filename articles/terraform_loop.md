@@ -328,8 +328,12 @@ resource "aws_iam_user" "example" {
 }
 ```
 
-for_eachはmap or setしか受け付けないためlistをそのまま使えず `toset()` を使ってsetにする必要があります。
+for_eachはmapか文字列のsetしか受け付けないためlistをそのまま使えず `toset()` を使ってsetにする必要があります。
 `each.key` や `each.value` でkey-valueを参照でき、setの場合はどちらも同じ値になります。
+
+:::message
+あとからでてくるdynamic block内では文字列以外のsetも使えるようです。
+:::
 
 ### mapをfor_eachで回してみる
 
