@@ -24,7 +24,7 @@ https://github.com/wim-web/laravel-load-test
 
 インフラ構成はALBを使用したスタンダードな構成です。
 
-![load-test_figure](https://github.com/wim-web/my_zenn/blob/master/image/laravel_load-test/load-test_figure.svg)
+![load-test_figure](https://github.com/wim-web/my_zenn/blob/master/image/laravel_load-test/load-test_figure.svg?raw=true)
 
 初期状態ではWebサーバーは1台で攻撃サーバーと同じサブネットに属しています。サブネット自体はパブリック・プライベートともに3つずつ用意してあります。
 
@@ -89,7 +89,7 @@ Webサーバーに入って自分自身のnginxに対してabを回してみま�
 :::
 
 
-![locust_nginx_1](./image/locust_nginx_1.png)
+![locust_nginx_1](https://github.com/wim-web/my_zenn/blob/master/image/laravel_load-test/locust_nginx_1.png?raw=true)
 
 |  -user  | rps | ms |
 | ------- | ---- | --- |
@@ -200,7 +200,7 @@ locust -f app.py --tags health_check
 
 対象PATH: `/health_check`
 
-![locust_health_check](./image/locust_health_check.png)
+![locust_health_check](https://github.com/wim-web/my_zenn/blob/master/image/laravel_load-test/locust_health_check.png?raw=true)
 
 | user | rps | ms | cpu(web) | cpu(locust) |
 | ---- | --- | -- | -------- | ------------|
@@ -228,7 +228,7 @@ locust -f app.py --tags show_articles
 
 web, locust, dbのどのCPUも余裕があります。並列数をあげてもどこの負荷も上がらないのでスケールしようにもボトルネックがわかりません。
 
-![locust_show_articles_db_metrics](./image/locust_show_articles_db_metrics.png)
+![locust_show_articles_db_metrics](https://github.com/wim-web/my_zenn/blob/master/image/laravel_load-test/locust_show_articles_db_metrics.png?raw=true)
 
 DBコネクション数を見る限り2コネクションまでしかありません。php-fpmのプロセスが2つなのでもしやと思い増やしてみることにします。
 
@@ -315,13 +315,13 @@ DBのCPUが張り付いてしまったのでDBがボトルネックっぽいで�
 
 ここでNew RelicのAPMで調べてみます。
 
-![locust_scenario](./image/locust_scenario.png)
+![locust_scenario](https://github.com/wim-web/my_zenn/blob/master/image/laravel_load-test/locust_scenario.png?raw=true)
 
 `articles.index` がほぼほぼ占めてます。このAPIを改善できれば大幅に改善できそうです。
 
 発行されてSQLを見てみるとカウントに時間がかかっています。
 
-![article_index_sql](./image/article_index_sql.png)
+![article_index_sql](https://github.com/wim-web/my_zenn/blob/master/image/laravel_load-test/article_index_sql.png?raw=true)
 
 Laravelのpaginateメソッドを使用してページネーションをしているのですが、総件数を取得するSQLも発行しているみたいです。
 
@@ -405,7 +405,7 @@ locust -f scenario.py
 
 rps, msともに悪化しており単体APIからやり直しかと思ったのですが、DBのCPU使用率が100%になっていたのでDBのスケールアップをします。
 
-![scale_out_db_cpu](./image/scale_out_db_cpu.png)
+![scale_out_db_cpu](https://github.com/wim-web/my_zenn/blob/master/image/laravel_load-test/scale_out_db_cpu.png?raw=true)
 
 
 `db.m5.xlarge` にインスタンスをあげましたがそれでもCPU使用率が張り付いてしまっていました。
