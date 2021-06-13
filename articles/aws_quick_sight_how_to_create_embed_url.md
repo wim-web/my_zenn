@@ -71,6 +71,10 @@ aws quicksight get-dashboard-embed-url --aws-account-id <> --dashboard-id <> --i
 ポイントは `--identity-type ANONYMOUS` を指定することと、`--namespace default` を指定することです。
 namespaceの詳細は説明しませんがなにもしていなければdefaultになっています。
 
+:::message
+`Unknown options: --namespace` というエラーが出る場合は1系,2系に関わらずaws-cliのバージョンが古い可能性があります
+:::
+
 なおAnonymousはQuickSightのプランがセッションキャパシティーでないとエラーになります。
 不特定多数のユーザーに公開するのでユーザー数でなくセッションという概念で料金が計算されるということです。
 
