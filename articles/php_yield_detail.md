@@ -391,8 +391,11 @@ ZEND_METHOD(Generator, getReturn)
 }
 ```
 
-zend_vm_execute.h
-ZEND_GENERATOR_RETURN_SPEC_CONST_HANDLER
+:::message
+retvalをセットしている箇所はzend_vm_execute.hのZEND_GENERATOR_RETURN_SPEC_CONST_HANDLERメソッドです
+:::
+
+
 
 ## validメソッド
 
