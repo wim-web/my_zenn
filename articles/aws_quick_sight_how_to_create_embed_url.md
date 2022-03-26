@@ -10,7 +10,7 @@ published: true
 
 QuickSightは他のサービスと違って独自にユーザーを作成しないといけないので、IAMをちゃんと設定しているのに埋め込みURLが生成できないなど罠にハマりやすいです。
 
-いくつかの種類の生成方法を見ていきQuickSightでの埋め込みURLを理解していきます。
+いくつかの種類の生成方法を見ていきQuickSightでの埋め込みURLを理解します。
 
 この記事でとりあげるのは以下の三種類でSAMLやADに関しては触れませんが根本的な権限周りなどは参考になると思います。
 
@@ -72,7 +72,7 @@ aws quicksight get-dashboard-embed-url --aws-account-id <> --dashboard-id <> --i
 namespaceの詳細は説明しませんがなにもしていなければdefaultになっています。
 
 :::message
-`Unknown options: --namespace` というエラーが出る場合は1系,2系に関わらずaws-cliのバージョンが古い可能性があります
+`Unknown options: --namespace` というエラーが出る場合は1系,2系にかかわらずaws-cliのバージョンが古い可能性があります。
 :::
 
 なおAnonymousはQuickSightのプランがセッションキャパシティーでないとエラーになります。

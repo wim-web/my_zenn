@@ -14,16 +14,14 @@ Gitの履歴を見たりするのに[Fork](https://git-fork.com/)というGUIク
 
 調べてみるとGitHub上で登録したアドレスとローカルのGitで設定してあるアドレスが違うと表示されないとのことでした。
 
-しかし、https://github.com/settings/emails のPrimary email addressで登録してあるアドレスと `git config --global user.email` で確認したローカルでのアドレスは一緒のものでした。
+しかし、<https://github.com/settings/emails> のPrimary email addressで登録してあるアドレスと `git config --global user.email` で確認したローカルでのアドレスは一緒のものでした。
 
 しばらく途方に暮れていたのですがアイコンが表示できているコミットのAuthorを見てみると、ドメインが `@users.noreply.github.com` という見慣れないアドレスになっていました。
 
-GitHubの設定画面をよく見てみると、
+GitHubの設定画面をよく見てみるとちゃんと書いてありました。
 
 > Because you have email privacy enabled, '登録したアドレス' will be used for account-related notifications as well as password resets. ~@users.noreply.github.com will be used for web-based Git operations, e.g., edits and merges.
 
-とちゃんと書いてありました。
-
 GitHubの設定では登録したアドレスを他のユーザーに見られないようにするためにKeep my email addresses privateという設定があり、それの設定を有効にしていました。
 
-ローカルのアドレス設定をGitHubが発行したものに変更してコミットするとちゃんとアイコンが表示されるようになりました。
+ローカルのアドレス設定をGitHubが発行したものに変更してコミットするとちゃんとアイコンが表示されました。

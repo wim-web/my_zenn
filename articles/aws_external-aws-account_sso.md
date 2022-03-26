@@ -45,7 +45,7 @@ IAM > IDプロバイダから「プロバイダを追加」をクリックしま
 
 ![add_id-provider](https://github.com/wim-web/my_zenn/blob/master/image/aws_external-aws-account_sso/add_id-provider.png?raw=true)
 
-次にIAM > ロールからSSOしたときに割り当てたい権限をもつロールを作成していきます。
+次にIAM > ロールからSSOしたときに割り当てたい権限をもつロールを作成します。
 （カスタムポリシーをアタッチしたい場合は事前に作成しておいてください。）
 
 信頼されたエンティティの種類はSAML 2.0 フェデレーションを選択し、さきほど作成したプロバイダーを選んだあと次のステップにすすんでください。
