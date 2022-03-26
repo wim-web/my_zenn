@@ -37,7 +37,7 @@ https://github.com/wim-web/my_code_sniffer
 
 ### ディレクトリ構成
 
-`MyStandard/` にファイルなどを配置していきます。 `MyStandard` の名前はなんでも大丈夫です。
+`MyStandard/` にファイルなどを配置します。 `MyStandard` の名前はなんでも大丈夫です。
 
 ```
 MyStandard
@@ -117,7 +117,7 @@ class DisallowSpaceAfterFnKeywordSniff implements Sniff
 
 今回はfnキーワードに対するトークンを登録しています。こうすることでCodeSnifferがファイルを解析したときにfnキーワードがあると `process` メソッドを実行してくれます。
 
-`process` メソッド内の解説をしていきます。
+`process` メソッド内の解説をします。
 
 `$tokens = $phpcsFile->getTokens();` で解析中のファイルの全トークンを取得できます。
 
@@ -182,7 +182,7 @@ if ($nextToken['content'] !== '(') {
 }
 ```
 
-`$phpcsFile->addError()` メソッドをつかってエラーメッセージを追加していきます。
+`$phpcsFile->addError()` メソッドをつかってエラーメッセージを追加します。
 
 今回使用しているメソッドは `$phpcsFile->addFixableError()` で、こちらのメソッドを使用すると `phpcbf` で自動修正できるようになります。
 

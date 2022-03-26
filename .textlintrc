@@ -1,15 +1,17 @@
 {
   "filters": {},
   "rules": {
-    "preset-ja-spacing": {
-      "ja-space-around-code": {
-        "before": true,
-        "after": true,
-      },
+    "preset-ja-technical-writing": {
+      "sentence-length": false,
+      "no-exclamation-question-mark": false,
+      "ja-no-weak-phrase": false,
+      "max-comma": false,
+      "max-ten": false
     },
-    "preset-ja-technical-writing": true,
     "prh": {
-      "rulePaths": ["./prh.yml"],
+      "rulePaths": [
+        "./prh.yml"
+      ]
     },
     "@proofdict/proofdict": {
       "dictURL": "https://azu.github.io/proof-dictionary/"

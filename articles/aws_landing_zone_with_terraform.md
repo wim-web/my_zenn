@@ -36,7 +36,7 @@ resource "aws_organizations_organization" "org" {
 ```
 
  Organizationsを利用することで他のサービスと統合して便利になるサービスがあります。利用したい場合は都度 `aws_service_access_principals` に追加していく形になります。
- 
+
  `feature_set` は基本的にALLで問題ありません。
   
 ## OU, アカウントの作成
@@ -44,7 +44,7 @@ resource "aws_organizations_organization" "org" {
 ### Log, Security
 
 LogとSecurityアカウントはCore OU配下に作成します。
- 
+
 ```hcl
 resource "aws_organizations_organizational_unit" "core" {
   name = "core"
@@ -59,7 +59,7 @@ resource "aws_organizations_account" "log" {
   parent_id = aws_organizations_organizational_unit.core.id
 } 
 ```
- 
+
 ```hcl
 resource "aws_organizations_account" "security" {
   name = "security"
@@ -250,7 +250,7 @@ EOF
 
 ### 有効化
 
-Organizationsのaws_organizations_organizationに ` "config.amazonaws.com"` と `"config-multiaccountsetup.amazonaws.com"` を追加します。
+Organizationsのaws_organizations_organizationに `"config.amazonaws.com"` と `"config-multiaccountsetup.amazonaws.com"` を追加します。
 
 ```hcl
 resource "aws_organizations_organization" "org" {
@@ -320,7 +320,7 @@ resource "null_resource" "config_multi_setup_delegated" {
 
 これでSecurityアカウントに委任ができたはずです。
 
-委任先のSecurityアカウントでAggregatorの作成をしていきます。
+委任先のSecurityアカウントでAggregatorの作成をします。
 
 ```hcl
 resource "aws_config_configuration_aggregator" "organization" {
@@ -360,7 +360,7 @@ resource "aws_iam_role_policy_attachment" "organization" {
 }
 ```
 
-これでSecurityアカウントでメンバーアカウントのConfigの情報を見ることができます。
+SecurityアカウントでメンバーアカウントのConfigの情報を見ることができます。
 
 メンバーアカウントへのConfig Rulesの適用は [Resource: aws_config_organization_managed_rule](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/config_organization_managed_rule) と [Resource: aws_config_organization_custom_rule](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/config_organization_custom_rule) で一斉に適用できます。
 
@@ -499,6 +499,6 @@ resource "aws_organizations_policy_attachment" "attach_some_role" {
 
 これで基本的なLanding Zoneの実装ができました。
 
-これだけでは特に通知の設定などもしていないのでなにか起こった時に発見できません。
+これだけではとくに通知の設定などもしていないのでなにか起こった時に発見できません。
 
 CloudWatchAlarmやEventBridge、AWS Chatbotなどを駆使してSlackなどへ通知する体制を整えることになるでしょう。
