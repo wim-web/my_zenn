@@ -1,0 +1,8 @@
+[default.extend-words]
+Hashi = "Hashi"
+
+[files]
+extend-exclude = [
+    "package*.json",
+    "prh.yml"
+]
