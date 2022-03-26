@@ -4,6 +4,9 @@ imports:
   - path: ./node_modules/textlint-rule-preset-icsmedia/dict/prh.yml
     ignoreRules:
       - expected: VS Code
+      - expected: プロバイダー
+      - expected: コンテナー
+
 
 rules:
   - expected: VSCode
@@ -18,3 +21,6 @@ rules:
       - from: terraform cloud
         to: Terraform Cloud
     prh: 大文字・小文字を確認してください
+ignoreRules:
+  - expected: プロバイダー
+
