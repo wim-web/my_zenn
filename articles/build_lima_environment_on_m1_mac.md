@@ -12,11 +12,11 @@ M1のMacBook Airを買ったので、せっかくならとlimaを使ってDocker
 
 <https://github.com/lima-vm/lima>
 
-環境はM1でIntel版で同じようにできるかは検証していません。
+環境はM1でIntel版でも同じようにできるかは検証していません。
 
 ## Install lima
 
-公式の[README](https://github.com/lima-vm/lima#getting-started)を参考にbrewでインストールすれば特に苦もなく入るはずです。
+公式の[README](https://github.com/lima-vm/lima#getting-started)を参考にbrewでインストールすれば、とくに苦もなく入るはずです。
 
 自分は[aqua](https://github.com/aquaproj/aqua)というツールを使っており、aquaでインストールができるのでaquaを使ってインストールしました。
 
@@ -65,7 +65,7 @@ NAME      STATUS     SSH                ARCH       CPUS    MEMORY    DISK      D
 docker    Running    127.0.0.1:54249    aarch64    4       4GiB      100GiB    /Users/wim/.lima/docker
 ```
 
-インスタンスに対してなにか操作を行いたいときはNAMEを引数に渡して実行します。
+インスタンスに対してなにか操作したいときはNAMEを引数に渡して実行します。
 たとえばdockerインスタンスにログインする場合は`limactl shell docker`になります。
 
 ### limaコマンド
