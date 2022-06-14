@@ -138,3 +138,17 @@ mounts:
 ```yml
 memory: "8Gib"
 ```
+
+## permission denied
+
+docker上で`npm i`をしたところ、`[Error: EACCES: permission denied, lchown '/var/www/node_modules/agent-base']`といったエラーでインストールできませんでした。
+
+<https://github.com/lima-vm/lima/issues/231>
+
+こちらのissueに書いてありますが、sshfsによる制限でchownができないらしいです。
+
+設定ファイルに`mountType: 9p`を追加し設定を変更することで解消できました。
+
+<https://github.com/lima-vm/lima/blob/f32d795ad775b33680d6f7283e58c5d17e98d382/examples/default.yaml#L92>
+
+ただ9pは遅いらしいのですがそこまでの検証はしていません。
