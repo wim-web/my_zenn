@@ -1,5 +1,18 @@
 {
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base"
+    "config:base",
+    ":prHourlyLimitNone"
+  ],
+  "regexManagers": [
+    {
+      "fileMatch": [
+        "Dockerfile$"
+      ],
+      "matchStrings": [
+        "yarn .* add (?<depName>.*)@(?<currentValue>.*)"
+      ],
+      "datasourceTemplate": "npm"
+    }
   ]
 }
