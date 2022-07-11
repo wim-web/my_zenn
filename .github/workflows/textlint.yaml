@@ -2,6 +2,7 @@ name: textlint
 on: [pull_request]
 jobs:
   textlint:
+    if: ${{ github.actor != 'renovate[bot]' }}
     name: runner / textlint
     runs-on: ubuntu-latest
     timeout-minutes: 5

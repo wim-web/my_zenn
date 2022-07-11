@@ -5,6 +5,7 @@ on: [pull_request]
 
 jobs:
   typos:
+    if: ${{ github.actor != 'renovate[bot]' }}
     name: Run typos
     runs-on: ubuntu-latest
     timeout-minutes: 5
