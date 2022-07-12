@@ -1,0 +1,8 @@
+---
+# aqua - Declarative CLI Version Manager
+# https://aquaproj.github.io/
+registries:
+- type: standard
+  ref: v3.10.0 # renovate: depName=aquaproj/aqua-registry
+packages:
+  - name: crate-ci/typos@v1.10.2 # not found for arm in github-release
