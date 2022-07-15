@@ -200,3 +200,44 @@ where
 ```
 
 これによってキーをStringに設定した場合、&Stringと&strのどちらでも呼び出せることになります。AsRefにしてしまうとHashが等価でない`AsRef<[u8]>`なども渡せてしまうことになります。
+
+## From, Into
+
+別の方へと変換します。AsRefと違い参照でなく元の値の所有権を消費して値を返却します。対象的な実装になっていますが関数の引数に使えるかどうかで違います。
+
+```rs
+struct A {
+    text: String,
+}
+
+struct B {
+    text: String,
+}
+
+impl From<A> for B {
+    fn from(val: A) -> Self {
+        B { text: val.text }
+    }
+}
+
+fn main() {
+    let a = A {
+        text: "converted".to_string(),
+    };
+
+    let b = to_b(a);
+
+    assert_eq!("converted", b.text)
+}
+
+fn to_b(some: impl Into<B>) -> B {
+    some.into()
+}
+
+// cannot compiled
+fn from_a(some: impl From<A>) -> B {
+    B::from(some)
+}
+```
+
+`From<T> for U`の実装があれば自動的に`Into<U> for T`も実装されます。
