@@ -40,7 +40,7 @@ fn main() {
 
 上の例だと有り難みがわかりませんが、`Box<T>`や`RC<T>`などのスマートポインタが普通の参照のように扱えるのはDerefトレイトのおかげです。
 
-また参照解決型変換といって暗黙的に変換を行ってくれます。
+また参照解決型変換といって暗黙的に変換してくれます。
 
 ```rs
 fn main() {
@@ -125,7 +125,7 @@ fn string2byte<'a, T: 'a + AsRef<String>>(s: &'a T) -> &'a [u8] {
 
 ## Borrow, BorrowMut
 
-Borrow<T>を実装しているなら、&Tを効率的に借用することができます。
+Borrow<T>を実装しているなら、&Tを効率的に借用できます。
 
 ```rs
 use std::borrow::{Borrow, BorrowMut};
@@ -163,11 +163,11 @@ fn increment<T: BorrowMut<u32>>(s: &mut T) {
 
 > it needs to be considered whether they should behave identical to those of the underlying type as a consequence of acting as a representation of that underlying type.
 
-要するにTとborrowで借用した&Tは同じ振る舞いをするべきだと書いてあります。書いてあるだけなので実装で強制することはできません。
+要するにTとborrowで借用した&Tは同じ振る舞いをするべきだと書いてあります。書いてあるだけなので実装で強制できません。
 
 [String](https://doc.rust-lang.org/std/string/struct.String.html)を見てもらえればわかるのですが、Borrowトレイトは`Borrow<str>`のみ実装されており、AsRefトレイトは`AsRef<[u8]>`, `AsRef<OsStr>`, `AsRef<Path>`, `AsRef<str>`が実装されています。
 
-同じ振る舞いの一つにHashが等価かどうかがあります。元のStringと同じHashになるのはstrだけなのでBorrowには`Borrow<str>`しか実装されていません。
+同じ振る舞いの1つにHashが等価かどうかがあります。元のStringと同じHashになるのはstrだけなのでBorrowには`Borrow<str>`しか実装されていません。
 
 ```rs
 fn main() {
