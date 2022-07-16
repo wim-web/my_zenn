@@ -241,3 +241,24 @@ fn from_a(some: impl From<A>) -> B {
 ```
 
 `From<T> for U`の実装があれば自動的に`Into<U> for T`も実装されます。
+
+## ToOwned
+
+参照を所有している値のコピーを作ることができます。Cloneに似ていますがCloneではできないコピーを実現します。
+
+```rs
+fn main() {
+    let v = vec![1, 2, 3, 4];
+    let s = &v[..];
+
+    // sを所有しているvのコピーがほしいが
+    // [i32].clone()と解釈されてしまうのでコンパイルできない
+    let clone_v = (*s).clone();
+
+    let clone_v = s.to_owned();
+
+    assert_eq!(v, clone_v);
+}
+```
+
+
