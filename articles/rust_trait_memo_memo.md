@@ -1,9 +1,9 @@
 ---
-title: "Rustの基本的なトレイト"
+title: "Rustで使いそうなトレイトの調査"
 emoji: "🦔"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["Rust"]
-published: false
+published: true
 ---
 
 ## Deref, DerefMut
