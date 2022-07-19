@@ -176,6 +176,41 @@ depNameを使ってdatasourceから検索すると書きましたが正確には
 
 本来はpackageNameを使うのですが、packageNameを指定していない場合はdepNameがpackageNameとして使われます。depNameはPRのタイトルなどに使われるのでパッケージ名が長い場合などに指定するのがよさそうです。
 
+#### extractVersionTemplate
+
+```json
+{
+  "fileMatch": [
+    "^initialize$"
+  ],
+  "matchStrings": [
+    "PYTHON_VERSION=\"(?<currentValue>.*)\""
+  ],
+  "depNameTemplate": "python/cpython",
+  "datasourceTemplate": "github-tags"
+}
+```
+
+以上のように設定をすると画像のように`v`が余計に付いてしまいます。
+
+![extract_version](https://github.com/wim-web/my_zenn/blob/master/image/renovate_no_settei_wo_shirabetayo/extract_version.png?raw=true)
+
+[対象のGithubのtags](https://github.com/python/cpython/tags)を見てもらえればわかるのですがプリフィックスに`v`が付いています。`v`はいらないのでextractVersionTemplateで抜き出します。
+
+```json
+{
+  "fileMatch": [
+    "^initialize$"
+  ],
+  "matchStrings": [
+    "PYTHON_VERSION=\"(?<currentValue>.*)\""
+  ],
+  "depNameTemplate": "python/cpython",
+  "datasourceTemplate": "github-tags",
+  "extractVersionTemplate": "^v(?<version>.*)$"
+}
+```
+
 ## 補完
 
 以下を設定ファイルに追記すると補完がある程度効くようになります。(VSCodeだけ？)
