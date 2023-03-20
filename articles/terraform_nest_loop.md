@@ -142,13 +142,13 @@ module内でさらにmoduleをつくることで何重のloopにも対応可能�
 locals {
   groups = {
     "GROUP_A" = {
-      permision_set_arns = [
+      permission_set_arns = [
         "arn:aws:sso:::permissionSet/ssoins-12345e7cccc04b03/bs-6bdaf3a33d689a7c",
         "arn:aws:sso:::permissionSet/ssoins-12345e7cccc04b03/bs-6bdaf3a33d689a7b"
       ]
     }
     "GROUP_B" = {
-      permision_set_arns = [
+      permission_set_arns = [
         "arn:aws:sso:::permissionSet/ssoins-12345e7cccc04b03/bs-6bdaf3a33d689a7c"
       ]
     }
@@ -158,7 +158,7 @@ locals {
 locals {
   flatten_groups = flatten([
     for group, ps in local.groups : [
-      for p in ps.permision_set_arns : {
+      for p in ps.permission_set_arns : {
         group_id      = group
         permission_id = p
       }
