@@ -6,39 +6,19 @@ topics: ["Terraform"]
 published: true
 ---
 
-## はじめに
+## 環境
 
-Terraformで繰り返し処理がしたくて調べていると以下のようなコードを見つけました。
-
-```hcl
-resource "aws_route53_record" "this" {
-  for_each = {
-    for d in var.domains : d.domain_name => {
-      name   = d.resource_record_name
-      record = d.resource_record_value
-      type   = d.resource_record_type
-    }
-  }
-  allow_overwrite = true
-  name            = each.value.name
-  records         = [each.value.record]
-  ttl             = 100
-  type            = each.value.type
-  zone_id         = var.zone_id
-}
+```bash
+$ terrraform -v
+Terraform v1.4.2
+on darwin_arm64
 ```
 
-for_eachとforを同時に使っていたり、`=>` など見たことないものも現れ、さっぱりわかりませんでした。
+## for, for_each, countの違い
 
-とりあえずコピペしていじればいいやと適当にやるもTerraformに怒られまくったので泣く泣く調査することにしました。
-
-## forとfor_each(とcount)
-
-まずforはExpression(式)であり、for_eachとcountはMeta-Argument(?)という明確な違いがあります。
-
-forは式なので値を返しますが、for_eachは返しません。
-
-for_eachはresourceやmoduleでしか書けず、イメージとしてはresourceブロックごと繰り返すという感じになります。
+まず[for](https://developer.hashicorp.com/terraform/language/expressions/for)はExpression(式)であり、[for_each](https://developer.hashicorp.com/terraform/language/meta-arguments/for_each)と[count](https://developer.hashicorp.com/terraform/language/meta-arguments/count)はMeta-Argumentといった明確な違いがあります。  
+forは式なので値を返しますが、for_eachとcountは返しません。  
+for_eachはresourceやmoduleでしか書けず、イメージとしてはresourceブロックごと繰り返すという感じになります。  
 
 ```hcl
 # これは書ける
@@ -54,8 +34,9 @@ resource "aws_instance" "name2" {
 
 なのでforのみを使って複数リソースを作ることはできません。
 
-## for式
+## forの使い方
 
+forは他のプログラミング言語のforと同じ感じで回せます。Pythonのリスト内包表記に似ています。
 mapとlistをforで回せるのでそれぞれ見ていきます。
 
 ### listをforで回してみる
@@ -152,33 +133,28 @@ Changes to Outputs:
     }
 ```
 
-keyが同じになるものをまとめることもできます。（使い所はわかりません。）
+forで回すと辞書順にソートされます。なのでforで生成されるのはsetでなくlistになります。
+厳密にはmapやobjectの場合はキーや属性名で要素がソートされ、文字列のsetの場合はその値でソートされます。  
+その他の型のsetの場合は任意の順序付けになりますが将来のバージョンで変更される可能性があります。
 
 ```hcl
 locals {
-  list = [
-    "hoge",
-    "fuga",
-    "fuga"
-  ]
+  set = toset(["b", "a", "c", "fjpoe"])
 }
 
-output "output_map" {
-  value = {for l in local.list : l => l...}
+output "list" {
+  value = [for v in local.set : v]
 }
 ```
 
 ```hcl
 Changes to Outputs:
-  + output_map = {
-      + fuga = [
-          + "fuga",
-          + "fuga",
-        ]
-      + hoge = [
-          + "hoge",
-        ]
-    }
+  + list = [
+      + "a",
+      + "b",
+      + "c",
+      + "fjpoe",
+    ]
 ```
 
 ### mapをforで回してみる
@@ -251,6 +227,51 @@ Changes to Outputs:
     ]
 ```
 
+forで回してmapを作成するときはキーが重複できない制約があります。
+
+```hcl
+locals {
+  users = {
+    Mike = {
+      role = "Admin"
+    }
+    Bob = {
+      role = "Admin"
+    }
+    Alice = {
+      role = "Developer"
+    }
+  }
+}
+
+output "role_user" {
+  # Adminが重複するのでエラーになる
+  value = { for name, user in local.users : user.role => name }
+}
+```
+
+その場合は結果をグループ化できます。
+
+```hcl
+output "role_user" {
+  # name -> name...
+  value = { for name, user in local.users : user.role => name... }
+}
+```
+
+```hcl
+Changes to Outputs:
+  + list = {
+      + Admin     = [
+          + "Bob",
+          + "Mike",
+        ]
+      + Developer = [
+          + "Alice",
+        ]
+    }
+```
+
 ### forまとめ
 
 listやmapを繰り返し処理して新たなlistやmapを作成できます。
@@ -285,7 +306,7 @@ users = [
 ]
 ```
 
-これだけだとインデックスでしか名前などを変更できないので、基本的にはlistと組み合わせて使う感じになると思います。
+これだけだと数値インデックスしか変数が使えないので、基本的にはlistと組み合わせて使います。
 
 ```hcl
 locals {
@@ -300,8 +321,6 @@ resource "aws_iam_user" "example" {
   name = local.names[count.index]
 }
 ```
-
-こうすることで名前などもある程度自由に指定できます。
 
 ## for_each
 
@@ -435,6 +454,6 @@ resource "aws_iam_user" "example" {
 
 ## まとめ
 
-forは式なので値を返すことができます。
-resourceを繰り返したい場合はfor_eachかcountを使用します。
-forとfor_eachは組み合わせることができます。
+forは式なので値を返すことができます。  
+resourceを繰り返したい場合はfor_eachかcountを使用します。  
+forとfor_eachは組み合わせることができます。  
