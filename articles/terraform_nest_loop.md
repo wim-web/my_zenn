@@ -136,7 +136,7 @@ module内でさらにmoduleをつくることで何重のloopにも対応可能�
 
 ## flattenする
 
-for_eachで回す変数が多次元であることが悪いので、flattenで一次元化してあげてそれをfor_eachで回します。
+変数を多次元からflattenで1次元化してあげてそれをfor_eachで回します。
 
 ```hcl
 locals {
