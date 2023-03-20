@@ -227,7 +227,7 @@ Changes to Outputs:
     ]
 ```
 
-forで回してmapを作成するときはキーが重複できない制約があります。
+forで回してmapを作成するときはキーはユニークでないといけません。
 
 ```hcl
 locals {
