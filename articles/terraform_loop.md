@@ -452,6 +452,10 @@ resource "aws_iam_user" "example" {
 }
 ```
 
+## loopをネストさせたい
+
+[Terraformでネストしたloopを書く](https://zenn.dev/wim/articles/terraform_nest_loop)
+
 ## まとめ
 
 forは式なので値を返すことができます。  
