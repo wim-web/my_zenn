@@ -3,6 +3,6 @@
 # https://aquaproj.github.io/
 registries:
 - type: standard
-  ref: v3.158.0 # renovate: depName=aquaproj/aqua-registry
+  ref: v3.159.0 # renovate: depName=aquaproj/aqua-registry
 packages:
   - name: crate-ci/typos@v1.14.8 # not found for arm in github-release
