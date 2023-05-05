@@ -13,4 +13,4 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3.5.2
       - name: typos
-        uses: crate-ci/typos@v1.14.8
+        uses: crate-ci/typos@v1.14.9
