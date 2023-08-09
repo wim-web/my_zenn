@@ -7,9 +7,18 @@ published: true
 ---
 
 随時更新するかもしれません。
+- 2023/08/09 更新
 
-## config:base
+## renovateのプリセット
 
+renovateが用意してくれているプリセットがあるので、最初はそれをベースに設定するとよいと思います。`config:best-practices`や`config:recommended`あたりを使っておけばよさそうです。
+
+[Full Config Presets](https://docs.renovatebot.com/presets-config/)
+
+各プリセットの詳細は[Renovate Docs: Default Presets](https://docs.renovatebot.com/presets-default/)から確認できます。コードベースで確認したい場合は[renovateのリポジトリ](https://github.com/renovatebot/renovate/blob/main/lib/config/presets/internal/default.ts)にあります。
+
+
+:::details 古いプリセット
 `config:base`はRenovateが用意しているプリセットです。`config:js-app`や`config:js-lib`などもあります。
 
 [Renovate Docs: Full Config Presets](https://docs.renovatebot.com/presets-config/)
@@ -20,12 +29,16 @@ published: true
 
 
 https://github.com/renovatebot/presets/blob/dda2282e5a53982daea09489d622eedc174243e2/packages/renovate-config-config/package.json#L16-L36
+:::
+
+
+
 
 ## Dependency Dashboard
 
 [Renovate Docs: Dependency Dashboard](https://docs.renovatebot.com/key-concepts/dashboard/)
 
-設定ファイルに以下の記述をするとDependency Dashboardというissueが立ち使えるようになります。  `config:base`をextendsしている場合は自動的に有効になっています。
+設定ファイルに以下の記述をするとDependency Dashboardというissueが立ち使えるようになります。
 
 ```json
 {
