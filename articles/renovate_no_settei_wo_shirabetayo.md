@@ -105,7 +105,7 @@ datasourceはどこから依存関係などの情報を検索するかを指定�
 
 #### dependency's name
 
-datasourceでどのような名前で検索するかを指定します。(≒ パッケージ名)
+datasourceからどのような名前(パッケージ名)で検索するかを指定します。
 
 たとえば[zennのcli](https://www.npmjs.com/package/zenn-cli)を更新対象にしたい場合は、datasourceをnpmとして、dependency's nameをzenn-cliとします。
 
