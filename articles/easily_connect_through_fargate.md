@@ -3,7 +3,7 @@ title: "ECS on Fargateで簡単にRDSへ接続する"
 emoji: "🐾"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["AWS"]
-published: true
+published: false
 ---
 
 FargateのSSMエージェントのバージョンが3.1.1732.0より新しくなったため、リモートホストへのポートフォワーディングが出来るようになりました。
