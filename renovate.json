@@ -5,6 +5,7 @@
   ],
   "regexManagers": [
     {
+      "customType": "regex",
       "fileMatch": [
         "Dockerfile$"
       ],
