@@ -3,7 +3,7 @@
   "extends": [
     "local>wim-web/renovate-config"
   ],
-  "regexManagers": [
+  "customManagers": [
     {
       "customType": "regex",
       "fileMatch": [
