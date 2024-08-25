@@ -11,6 +11,6 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Checkout
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
       - name: typos
         uses: crate-ci/typos@b86466d268920e98b8f1acc7fbb6f08ec871d136 # v1.24.1
