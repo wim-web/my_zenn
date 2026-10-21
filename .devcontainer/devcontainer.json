@@ -1,14 +1,8 @@
-// For format details, see https://aka.ms/vscode-remote/devcontainer.json or this file's README at:
-// https://github.com/microsoft/vscode-dev-containers/tree/v0.195.0/containers/rust
+// For format details, see https://aka.ms/devcontainer.json
 {
     "name": "zenn",
     "build": {
-        "dockerfile": "Dockerfile",
-        "args": {
-            // Use the VARIANT arg to pick a Debian OS version: buster, bullseye
-            // Use bullseye when on local on arm64/Apple Silicon.
-            "VARIANT": "bullseye"
-        }
+        "dockerfile": "Dockerfile"
     },
     "runArgs": [
         "--cap-add=SYS_PTRACE",

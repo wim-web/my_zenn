@@ -5,19 +5,28 @@ jobs:
     if: ${{ github.actor != 'renovate[bot]' }}
     name: runner / textlint
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - name: Use Node.js
-        uses: actions/setup-node@v2-beta
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
-          node-version: '17'
-      - run: yarn install
-      - uses: reviewdog/action-setup@3f401fe1d58fe77e10d665ab713057375e39b887 # v1.3.0
+          node-version-file: '.node-version'
+      - run: npm install --global yarn@1.22.22
+      - run: yarn install --frozen-lockfile
+      - name: Use patched Go for reviewdog
+        uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
         with:
-          reviewdog_version: 'v0.14.2'
+          go-version: '1.27.3'
+          cache: false
+      - name: Build reviewdog with patched certificate verification
+        env:
+          GOTOOLCHAIN: local
+        run: |
+          go install github.com/reviewdog/reviewdog/cmd/reviewdog@v0.14.2
+          go version -m "$(go env GOPATH)/bin/reviewdog"
       - name: textlint | reviewdog
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
